@@ -31,60 +31,6 @@
   
   - Backend: Gestión de la lógica de negocio, comunicación con la base de datos y gestión de la API del chatbot.
 
-## Funcionalidades
-
-La aplicación cubrirá los siguientes requisitos y funcionalidades esenciales:
-
-  - Gestión de Usuarios
-  - Registro e inicio de sesión.
-  - Administración de usuarios, roles y permisos.
-
-Roles del Sistema: 
-
-  - Administrador
-  
-  - Moderador
-  
-  - Usuario Premium
-  
-  - Usuario
-  
-  - Usuario Anónimo
-
-## Vistas de la Aplicación
-
-### Vistas Estáticas
-
-  - Inicio
-
-  - Login
-
-  - Registro
-
-  - Perfil
-
-### Vistas Dinámicas
-
-  - Panel de administración
-
-  - Panel de moderación
-
-  - Planificador
-
-  - Vuelos
-
-  - Hoteles
-
-  - Paquetes
-
-  - Mis viajes
-
-### Vistas CRUD (Mantenimiento)
-
-  - Gestión de usuarios, roles
-
-  - Gestión de hoteles, vuelos y paquetes de viaje
-
 ## Arquitectura y Tecnologías
 
 ### Frontend
@@ -113,13 +59,14 @@ Roles del Sistema:
 
   - Contenedores: Docker
 
-## Esquema Entidad–Relación de la Base de Datos
+## [Funcionalidades](https://github.com/druiman1608/TravelAi/wiki/Funcionalidades-%E2%80%90-TravelAI)
 
-  - Relaciones:
-    (pendiente de definir)
+## [Vistas de la aplicación](https://github.com/druiman1608/TravelAi/wiki/Vistas-de-la-Aplicaci%C3%B3n-%E2%80%90-TravelAI)
 
-## Documentación técnica
+## [Esquema Entidad-Relación de la Base de datos](https://github.com/druiman1608/TravelAi/wiki/Esquema-Entidad%E2%80%93Relaci%C3%B3n-de-la-Base-de-Datos-%E2%80%90-TravelAI)
 
-## Bitacora del proyecto
+## [Documentación técnica](https://github.com/druiman1608/TravelAi/wiki/Documentaci%C3%B3n-t%C3%A9cnica-%E2%80%90-TravelAI)
 
-## Bibliografía
+## [Bitacora del proyecto](https://github.com/druiman1608/TravelAi/wiki/Bitacora-del-proyecto-%E2%80%90-TravelAI)
+
+## [Bibliografía](https://github.com/druiman1608/TravelAi/wiki/Bibliograf%C3%ADa-%E2%80%90-TravelAI)
