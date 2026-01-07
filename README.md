@@ -61,8 +61,6 @@ Roles del Sistema:
 
   - Registro
 
-  - Planificador
-
   - Perfil
 
 ### Vistas Dinámicas
@@ -70,6 +68,8 @@ Roles del Sistema:
   - Panel de administración
 
   - Panel de moderación
+
+  - Planificador
 
   - Vuelos
 
