@@ -13,6 +13,11 @@ services:
       - "3306:3306"
     volumes:
       - ./docker/mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   # Backend [Laravel]
   app:
@@ -24,7 +29,8 @@ services:
     volumes:
       - ./backend:/var/www
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   # Servidor Web [Nginx]
   nginx:
