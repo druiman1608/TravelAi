@@ -12,12 +12,15 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./docker/mysql_data:/var/lib/mysql
+    networks:
+      - travelai-net
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
 
   # Backend [Laravel]
   app:
@@ -57,8 +60,8 @@ services:
     ports:
       - "8082:80"
     environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootTravelai1234
+      - PMA_HOST=db
+      - MYSQL_ROOT_PASSWORD=rootTravelai1234
     depends_on:
       - db
     networks:
@@ -72,20 +75,15 @@ services:
     ports:
       - "8080:3000"
     environment:
-      WDS_SOCKET_PORT: 8080
-      WATCHPACK_POLLING: true
-      CHOKIDAR_USEPOLLING: true
+      - WDS_SOCKET_PORT=8080
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./frontend:/app
-    command: sh -c "npm install && npm start"
     networks:
       - travelai-net
+    command: sh -c "npm install && npm start"
 
-# Volumen persistente
-volumes:
-  mysql_data:
-
-# Red
 networks:
   travelai-net:
     driver: bridge

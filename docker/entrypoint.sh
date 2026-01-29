@@ -1,36 +1,29 @@
 #!/bin/sh
 set -e
 
-echo "Esperando a MySQL..."
+echo "--- Iniciando Setup de TravelAI ---"
 
-# Esperar a que MySQL esté listo
+# 1. Asegurar permisos de las carpetas de Laravel
+# Esto lo hace como root al arrancar
+echo "Ajustando permisos de carpetas..."
+chown -R www-data:www-data /var/www
+chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
+# 2. Esperar a la base de datos
+echo "Esperando a MySQL..."
 until php -r "new PDO('mysql:host=db;dbname=travelai', 'travelai', 'Travelai1234?');" >/dev/null 2>&1; do
   sleep 2
 done
 
-echo "MySQL listo"
-
-echo "Ajustando permisos de Laravel..."
-chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache || true
-chmod -R 775 /var/www/storage /var/www/bootstrap/cache || true
-
-echo "Instalando dependencias si hace falta..."
-if [ ! -d /var/www/vendor ]; then
-    composer install --no-interaction --prefer-dist
-else
-    echo "Dependencias ya instaladas"
+# 3. Instalacion de dependencias si no existen (como www-data)
+if [ ! -d "/var/www/vendor" ]; then
+    echo "Instalando dependencias de Composer..."
+    su -s /bin/sh -c "composer install --no-interaction --prefer-dist" www-data
 fi
 
-# Generar APP_KEY si no existe
-if ! php artisan key:generate --check >/dev/null 2>&1; then
-    echo "Generando APP_KEY..."
-    php artisan key:generate --force
-else
-    echo "APP_KEY ya existe"
-fi
+# 4. Tareas de Laravel
+su -s /bin/sh -c "php artisan config:clear" www-data
 
-#echo "Ejecutando migraciones y seeders..."
-#php artisan migrate --force --seed
+echo "--- Todo listo, arrancando PHP-FPM ---"
 
-echo "Arrancando PHP-FPM..."
 exec "$@"
