@@ -12,22 +12,23 @@ class DestinationSeeder extends Seeder
      */
     public function run(): void
     {
+        \App\Models\Destination::factory()->count(10)->create();
+
         // Destinos
+        // \App\Models\Destination::create([
+        //     'nombre_ciudad' => 'París',
+        //     'pais' => 'Francia',
+        //     'clima' => 'Templado',
+        //     'categoria_ia' => 'Cultural',
+        //     'descripcion_ia' => 'París, la ciudad del amor, es famosa por su arquitectura impresionante, museos de renombre mundial como el Louvre, y monumentos icónicos como la Torre Eiffel y la Catedral de Notre-Dame.'
+        // ]);
 
-        \App\Models\Destination::create([
-            'nombre_ciudad' => 'París',
-            'pais' => 'Francia',
-            'clima' => 'Templado',
-            'categoria_ia' => 'Cultural',
-            'descripcion_ia' => 'París, la ciudad del amor, es famosa por su arquitectura impresionante, museos de renombre mundial como el Louvre, y monumentos icónicos como la Torre Eiffel y la Catedral de Notre-Dame.'
-        ]);
-
-        \App\Models\Destination::create([
-            'nombre_ciudad' => 'Tokio',
-            'pais' => 'Japón',
-            'clima' => 'Templado',
-            'categoria_ia' => 'Tecnológico',
-            'descripcion_ia' => 'Tokio, una metrópolis vibrante que combina tradición y modernidad, ofrece desde templos históricos hasta rascacielos futuristas, además de una escena culinaria excepcional y tecnología de vanguardia.'
-        ]);
+        // \App\Models\Destination::create([
+        //     'nombre_ciudad' => 'Tokio',
+        //     'pais' => 'Japón',
+        //     'clima' => 'Templado',
+        //     'categoria_ia' => 'Tecnológico',
+        //     'descripcion_ia' => 'Tokio, una metrópolis vibrante que combina tradición y modernidad, ofrece desde templos históricos hasta rascacielos futuristas, además de una escena culinaria excepcional y tecnología de vanguardia.'
+        // ]);
     }
 }

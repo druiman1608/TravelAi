@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             FlightSeeder::class,
             HotelSeeder::class,
+            PackageSeeder::class,
+            ReservationSeeder::class,
+            RoleSeeder::class,
         ]);
 
         // User::factory(10)->create();

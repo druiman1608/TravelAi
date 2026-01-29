@@ -28,6 +28,7 @@ class FlightFactory extends Factory
             'fecha_llegada' => fake()->dateTimeBetween('+1 days','+1 month'),
             'asientos_disponibles' => fake()->numberBetween(50, 300),
             'precio' => fake()->randomFloat(2, 50, 500),
+            'destination_id' => \App\Models\Destination::factory(),
         ];
     }
 }

@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Hotel extends Model
+class Reservation extends Model
 {
     use HasFactory;
     
-    protected $table = 'hotels';
+    protected $table = 'reservations';
 
     protected $fillable = [
-        'nombre',
-        'ciudad',
-        'direccion',
-        'estrellas',
-        'precio_noche',
-        'descripcion',
-        'imagen_url'
+        'user_id',
+        'package_id',
+        'hotel_id',
+        'flight_id',
+        'fecha',
+        'estado',
+        'importe_pagado',
     ];
 }

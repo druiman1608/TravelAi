@@ -21,7 +21,7 @@ class HotelSeeder extends Seeder
         //     'ciudad' => 'Madrid',
         //     'direccion' => 'Calle Gran Vía 12',
         //     'estrellas' => 4,
-        //     'precio_por_noche' => 120.50,
+        //     'precio_noche' => 120.50,
         //     'descripcion' => 'Un hotel de lujo en el corazón de Madrid.'
         // ]);
 
@@ -30,7 +30,7 @@ class HotelSeeder extends Seeder
         //     'ciudad' => 'Barcelona',
         //     'direccion' => 'Paseo Marítimo 5',
         //     'estrellas' => 5,
-        //     'precio_por_noche' => 250.00,
+        //     'precio_noche' => 250.00,
         //     'descripcion' => 'Vistas increíbles al mar Mediterráneo.'
         // ]);
     }

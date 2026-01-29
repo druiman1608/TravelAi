@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Destination extends Model
 {
+    use HasFactory;
+
     protected $table = 'destinations';
 
     protected $fillable = [

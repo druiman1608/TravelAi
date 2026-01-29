@@ -24,8 +24,10 @@ class HotelFactory extends Factory
             'ciudad' => fake()->city(),
             'direccion' => fake()->address(),
             'estrellas'=> fake()->numberBetween(1, 5),
-            'precio_por_noche'=> fake()->numberBetween(50, 500),
+            'precio_noche'=> fake()->numberBetween(50, 500),
             'descripcion'=> fake()->paragraph(),
+            'imagen_url'=> fake()->imageUrl(640, 480, 'hotel', true),
+            'destination_id' => \App\Models\Destination::factory(),
         ];
     }
 }
