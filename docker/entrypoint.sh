@@ -1,33 +1,36 @@
 #!/bin/sh
-
 set -e
 
 echo "Esperando a MySQL..."
 
-# Esperar hasta que MySQL este listo
+# Esperar a que MySQL esté listo
 until php -r "new PDO('mysql:host=db;dbname=travelai', 'travelai', 'Travelai1234?');" >/dev/null 2>&1; do
   sleep 2
 done
 
 echo "MySQL listo"
 
-echo "Ajustando permisos..."
-chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+echo "Ajustando permisos de Laravel..."
+chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache || true
+chmod -R 775 /var/www/storage /var/www/bootstrap/cache || true
 
-echo "Instalando dependencias..."
-composer install --no-interaction --prefer-dist
+echo "Instalando dependencias si hace falta..."
+if [ ! -d /var/www/vendor ]; then
+    composer install --no-interaction --prefer-dist
+else
+    echo "Dependencias ya instaladas"
+fi
 
 # Generar APP_KEY si no existe
-if [ ! -f /var/www/.env ] || ! grep -q "APP_KEY=base64" /var/www/.env; then
+if ! php artisan key:generate --check >/dev/null 2>&1; then
     echo "Generando APP_KEY..."
     php artisan key:generate --force
 else
-    echo "APP_KEY ya existe, no es necesario generar una nueva key."
+    echo "APP_KEY ya existe"
 fi
 
-echo "Ejecutando migraciones..."
-php artisan migrate --force
+#echo "Ejecutando migraciones y seeders..."
+#php artisan migrate --force --seed
 
-echo "Arrancando PHP-FPM..."    
+echo "Arrancando PHP-FPM..."
 exec "$@"
