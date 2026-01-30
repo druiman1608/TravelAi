@@ -1,20 +1,18 @@
 FROM node:22-alpine
 
-# Crear directorio de la app y cache de npm
+# Crear directorio de la app
 WORKDIR /app
-RUN mkdir -p /app/.npm
+
+# Cache de npm en contenedor para evitar problemas de permisos
+RUN mkdir -p /app/.npm \
+    && chown -R node:node /app/.npm
 ENV NPM_CONFIG_CACHE=/app/.npm
 
 # Crear usuario no-root
-RUN addgroup -g 1001 nodegroup && adduser -u 1001 -G nodegroup -S nodeuser
+RUN addgroup -g 1001 nodegroup && adduser -u 1001 -G nodegroup -S node
+USER node
 
-# Dar permisos a /app
-RUN chown -R nodeuser:nodegroup /app
-
-# Cambiar a usuario no-root
-USER nodeuser
-
-# Copiar package.json y package-lock.json primero (para cache de docker)
+# Copiar solo package.json primero para aprovechar cache de Docker
 COPY frontend/package*.json ./
 
 # Instalar dependencias
@@ -23,4 +21,8 @@ RUN npm install
 # Copiar toda la app
 COPY frontend/ .
 
-CMD ["npm", "run", "dev", "--", "--port", "8080", "--host"]
+# Asegurar permisos
+RUN chown -R node:node /app
+
+# Comando por defecto
+CMD ["sh", "-c", "npm run dev -- --port 8080 --host"]
