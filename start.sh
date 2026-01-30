@@ -5,12 +5,16 @@ echo "Iniciando proyecto TravelAI"
 
 # Detener y eliminar contenedores antiguos
 echo "--- Deteniendo contenedores antiguos ---"
-docker compose down
+docker compose down --volumes --remove-orphans
 
 # Limpiar node_modules y volumenes de MySQL para evitar conflictos de permisos
 echo "--- Limpiando node_modules y volumenes de MySQL ---"
 rm -rf ./frontend/node_modules
 rm -rf ./docker/mysql_data
+
+# Eliminar imagenes antiguas que puedan estar en cache
+echo "--- Limpiando imagenes de Docker ---"
+docker image prune -af
 
 # Construir y levantar todo
 echo "--- Levantando Docker Compose ---"

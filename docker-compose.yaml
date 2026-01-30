@@ -82,8 +82,6 @@ services:
     environment:
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true
-    volumes:
-      - ./frontend:/app
     networks:
       - travelai-net
     command: sh -c "npm install && npm run dev -- --port 8080 --host"
