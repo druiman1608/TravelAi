@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Hotel extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'hotels';
 
     protected $fillable = [
@@ -18,7 +17,13 @@ class Hotel extends Model
         'direccion',
         'estrellas',
         'precio_noche',
+        'destination_id',
         'descripcion',
         'imagen_url'
     ];
+
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 }

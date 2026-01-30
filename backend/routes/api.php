@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\TravelController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\TravelController;
+use App\Http\Controllers\Admin\HotelController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
-Route::get('/hoteles', [TravelController::class, 'getHoteles']);
-Route::get('/vuelos', [TravelController::class, 'getVuelos']);
+Route::post('/admin/hotels', [HotelController::class, 'store']);
+Route::get('/destinations', function () {
+    return \App\Models\Destination::all();
+});
