@@ -29,7 +29,6 @@ services:
       dockerfile: docker/php.Dockerfile
     container_name: travelai-app
     restart: always
-    user: "${UID:-1000}:${GID:-1000}"
     env_file:
       - .env.docker
     volumes:
@@ -72,17 +71,17 @@ services:
 
   # Frontend [React - 8081]
   frontend:
-    image: node:22-alpine
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
     container_name: travelai-frontend
-    user: "${UID:-1000}:${GID:-1000}"
-    env_file:
-      - .env.docker
     working_dir: /app
     ports:
       - "8081:8080"
     environment:
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true
+      - NPM_CONFIG_CACHE=/app/.npm
     volumes:
       - ./frontend:/app
     networks:
