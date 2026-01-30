@@ -1,12 +1,12 @@
 services:
-  # Base de Datos [MySQL]
+  # Base de Datos
   db:
     image: mysql:8.0
     container_name: travelai-db
     restart: always
     environment:
       MYSQL_DATABASE: travelai
-      MYSQL_ROOT_PASSWORD: rootTravelai1234
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: travelai
       MYSQL_PASSWORD: Travelai1234?
     ports:
@@ -16,11 +16,11 @@ services:
     networks:
       - travelai-net
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 10s
-      retries: 10
-      start_period: 20s
+      test:
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   # Backend [Laravel]
   app:
@@ -28,22 +28,17 @@ services:
       context: .
       dockerfile: docker/php.Dockerfile
     container_name: travelai-app
-    restart: always
     volumes:
       - ./backend:/var/www
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     networks:
       - travelai-net
-    entrypoint: /entrypoint.sh
-    command: ["php-fpm"]
 
-  # Nginx [Laravel]
+  # Nginx
   nginx:
     image: nginx:alpine
     container_name: travelai-nginx
-    restart: always
     ports:
       - "8082:80"
     volumes:
@@ -58,14 +53,11 @@ services:
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: travelai-phpmyadmin
-    restart: always
     ports:
       - "8083:80"
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootTravelai1234
-    depends_on:
-      - db
+      MYSQL_ROOT_PASSWORD: root
     networks:
       - travelai-net
 
@@ -75,16 +67,13 @@ services:
       context: .
       dockerfile: docker/frontend.Dockerfile
     container_name: travelai-frontend
-    restart: always
-    working_dir: /app
     ports:
       - "8081:8080"
-    environment:
-      - WATCHPACK_POLLING=true
-      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     networks:
       - travelai-net
-    command: sh -c "npm install && npm run dev -- --port 8080 --host"
 
 networks:
   travelai-net:

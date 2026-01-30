@@ -17,11 +17,11 @@ Crea el archivo de configuración del Backend:
 - Copia el archivo "backend/.env.example" y renombrarlo como "backend/.env".
 - Pegar los datos de la DB, tienen que coincidir con los del "docker-compose.yml":
   - DB_CONNECTION=mysql
-  - DB_HOST=mysql
+  - DB_HOST=db
   - DB_PORT=3306
   - DB_DATABASE=travelai
-  - DB_USERNAME=root
-  - DB_PASSWORD=root
+  - DB_USERNAME=travelai
+  - DB_PASSWORD="Travelai1234?"
 
 - Tambien puedes copiar el contenido de .env.setup y pegarlo en .env (.env.setup es una copia del .env ya funcionando).
 
@@ -43,7 +43,7 @@ Crea el archivo de configuración del Backend:
 
 ## 4. (OPCIONAL) Lanzar el seeder para meter los datos de prueba
 
-- docker exec -it travelai-app php artisan db:seed --class=TablasBaseSeeder
+- docker exec -it travelai-app php artisan db:seed --class=DatabaseSeeder
 
 ## Direcciones de acceso:
 
